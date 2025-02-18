@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,10 +39,7 @@ public class ClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<ClientResponse> readCliente(@PathVariable Long id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
-        if (cliente.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(clientService.clientToResponse(cliente.get()), HttpStatus.OK);
+        return cliente.map(value -> new ResponseEntity<>(clientService.clientToResponse(value), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/{id}")

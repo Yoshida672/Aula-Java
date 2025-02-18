@@ -6,7 +6,6 @@ import br.com.fiap.api_rest.dto.ClientResponse;
 import br.com.fiap.api_rest.model.Cliente;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
