@@ -5,6 +5,7 @@ import br.com.fiap.api_rest.dto.ClientResponse;
 import br.com.fiap.api_rest.model.Cliente;
 import br.com.fiap.api_rest.repository.ClienteRepository;
 import br.com.fiap.api_rest.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class ClienteController {
     // Post, Get, Put, Delete
 
     @PostMapping
-    public ResponseEntity<Cliente> createCliente(@RequestBody ClientRequest cliente) {
+    public ResponseEntity<Cliente> createCliente(@Valid @RequestBody ClientRequest cliente) {
         Cliente clienteSalvo = clienteRepository.save(clientService.requestToCliente(cliente));
         return new ResponseEntity<>(clienteSalvo, HttpStatus.CREATED);
     }
