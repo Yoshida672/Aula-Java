@@ -1,5 +1,7 @@
 package br.com.fiap.api_rest.dto;
 
-public record ClientResponse(long id,String nome){
+import br.com.fiap.api_rest.model.Categoria;
+
+public record ClientResponse(long id, String nome, Categoria categoria){
 
 }
