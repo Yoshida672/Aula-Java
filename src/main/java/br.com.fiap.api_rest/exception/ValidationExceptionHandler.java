@@ -1,4 +1,5 @@
 package br.com.fiap.api_rest.exception;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -11,16 +12,12 @@ import java.util.Map;
 
 @ControllerAdvice
 public class ValidationExceptionHandler {
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException e) {
+    public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
-
-        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+        for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 }
-
