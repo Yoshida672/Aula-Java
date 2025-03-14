@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.Date;
+
 
 @Entity
 
@@ -18,6 +20,8 @@ public class Cliente {
     private String senha;
     private String cpf;
     private Categoria categoria;
+    private Date dataNacimento;
+    private boolean vip;
 
     public Cliente() {
     }
@@ -30,6 +34,34 @@ public class Cliente {
         this.senha = senha;
         this.cpf = cpf;
         this.categoria = categoria;
+    }
+
+    public Cliente(Long id, String nome, int idade, String email, String senha, String cpf, Categoria categoria, Date dataNacimento, boolean vip) {
+        this.id = id;
+        this.nome = nome;
+        this.idade = idade;
+        this.email = email;
+        this.senha = senha;
+        this.cpf = cpf;
+        this.categoria = categoria;
+        this.dataNacimento = dataNacimento;
+        this.vip = vip;
+    }
+
+    public Date getDataNacimento() {
+        return dataNacimento;
+    }
+
+    public void setDataNacimento(Date dataNacimento) {
+        this.dataNacimento = dataNacimento;
+    }
+
+    public boolean isVip() {
+        return vip;
+    }
+
+    public void setVip(boolean vip) {
+        this.vip = vip;
     }
 
     public Long getId() {
