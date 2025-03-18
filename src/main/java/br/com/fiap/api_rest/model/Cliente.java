@@ -1,11 +1,9 @@
 package br.com.fiap.api_rest.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -22,8 +20,18 @@ public class Cliente {
     private Categoria categoria;
     private Date dataNacimento;
     private boolean vip;
+    @ManyToOne
+    @JoinColumn(name="id_filial")
+    private Filial filial;
+    @ManyToMany
+    @JoinTable(name="grupo_cliente",
+            joinColumns =
+            @JoinColumn(name="id_grupo",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_cliente",referencedColumnName = "id")
+    )
+    private List<Grupo> grupos;
 
-    public Cliente() {
+    public Cliente(Object o, String nome, int idade, String email, String senha, String cpf, Categoria categoria, Filial filial, List<Grupo> grupos) {
     }
 
     public Cliente(Long id, String nome, int idade, String email, String senha, String cpf, Categoria categoria) {
@@ -36,7 +44,7 @@ public class Cliente {
         this.categoria = categoria;
     }
 
-    public Cliente(Long id, String nome, int idade, String email, String senha, String cpf, Categoria categoria, Date dataNacimento, boolean vip) {
+    public Cliente(Long id, String nome, int idade, String email, String senha, String cpf, Categoria categoria, Date dataNacimento, boolean vip, Filial filial, List<Grupo> grupos) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;
@@ -46,6 +54,8 @@ public class Cliente {
         this.categoria = categoria;
         this.dataNacimento = dataNacimento;
         this.vip = vip;
+        this.filial = filial;
+        this.grupos = grupos;
     }
 
     public Date getDataNacimento() {
@@ -118,5 +128,21 @@ public class Cliente {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public Filial getFilial() {
+        return filial;
+    }
+
+    public void setFilial(Filial filial) {
+        this.filial = filial;
+    }
+
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
     }
 }

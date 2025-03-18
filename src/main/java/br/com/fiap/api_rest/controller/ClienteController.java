@@ -1,10 +1,10 @@
 package br.com.fiap.api_rest.controller;
 
-import br.com.fiap.api_rest.dto.ClientRequest;
-import br.com.fiap.api_rest.dto.ClientResponse;
+import br.com.fiap.api_rest.dto.ClienteRequest;
+import br.com.fiap.api_rest.dto.ClienteResponse;
 import br.com.fiap.api_rest.model.Cliente;
 import br.com.fiap.api_rest.repository.ClienteRepository;
-import br.com.fiap.api_rest.service.ClientService;
+import br.com.fiap.api_rest.service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,7 +30,7 @@ public class ClienteController {
     @Autowired
     ClienteRepository clienteRepository;
     @Autowired
-    ClientService clienteService;
+    ClienteService clienteService;
 
     // Create, Read, Update, Delete - CRUD
     // Post, Get, Put, Delete - Verbos HTTP correspondentes
@@ -46,13 +45,13 @@ public class ClienteController {
 
     })
     @PostMapping
-    public ResponseEntity<Cliente> createCliente(@Valid @RequestBody ClientRequest cliente) {
+    public ResponseEntity<Cliente> createCliente(@Valid @RequestBody ClienteRequest cliente) {
         Cliente clienteSalvo = clienteRepository.save(clienteService.requestToCliente(cliente));
         return new ResponseEntity<>(clienteSalvo, HttpStatus.CREATED);
     }
     @Operation(summary = "Retorna uma lista de clientes")
     @GetMapping
-    public ResponseEntity<Page<ClientResponse>> readClientes(@RequestParam(defaultValue = "0") Integer page) {
+    public ResponseEntity<Page<ClienteResponse>> readClientes(@RequestParam(defaultValue = "0") Integer page) {
         Pageable pageable = PageRequest.of(page, 2, Sort.by("categoria").ascending().and(Sort.by("nome").ascending()));
         return new ResponseEntity<>(clienteService.findAll(pageable), HttpStatus.OK);
     }
@@ -62,14 +61,14 @@ public class ClienteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Cliente encontrado com sucesso",
-                    content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ClientResponse.class))}),
+                    content = {@Content(mediaType = "application/json",schema = @Schema(implementation = ClienteResponse.class))}),
             @ApiResponse(responseCode = "404",
                     description = "Nenhum cliente encontrado",
                     content = {@Content(schema = @Schema())})
 
     })
     @GetMapping("/{id}")
-    public ResponseEntity<ClientResponse> readCliente(@PathVariable Long id) {
+    public ResponseEntity<ClienteResponse> readCliente(@PathVariable Long id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.map(value -> new ResponseEntity<>(clienteService.clientToResponse(value, false), HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
