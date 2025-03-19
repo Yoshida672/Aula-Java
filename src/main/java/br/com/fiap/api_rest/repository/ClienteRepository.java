@@ -11,19 +11,19 @@ import java.util.List;
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     List<Cliente> findByNome(String nome);
     Cliente findByCpf(String cpf);
-    List<Cliente> findByNameEqualsIgnoreCase(String nome);
-    List<Cliente> findTop10ByIdade(int idade);
-    List<Cliente> findByIdadeGreaterThanEqual(int idade);
-    List<Cliente> findByIdadeBetween(int min,int max);
+    List<Cliente> findByNomeEqualsIgnoreCase(String nome);
+    List<Cliente> findTop10ByIdade(Integer idade);
+    List<Cliente> findByIdadeGreaterThanEqual(Integer idade);
+    List<Cliente> findByIdadeBetween(Integer min,Integer max);
     List<Cliente> findByCpfAndNome(String cpf,String nome);
     List<Cliente> findByCpfStartingWith(String prefix);
     List<Cliente> findByNomeIsNot(String nome);
     List<Cliente> findBySenhaIsNotNull();
     List<Cliente> findByEmailLike(String likePattern);
-    List<Cliente> findByCategoriaContaining(String prefix);
     List<Cliente> findByVipTrue();
     List<Cliente> findByDataNascimentoBefore(Date data);
     List<Cliente> findByDataNascimentoAfter(Date data);
     List<Cliente> findByNomeOrderByNome(String nome);
     List<Cliente> findByNomeOrEmail(String nome,String email);
 }
+

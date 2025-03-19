@@ -20,7 +20,6 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 public Cliente requestToCliente(ClienteRequest clientRequest){
-    Cliente cliente = new Cliente(null, clientRequest.getNome(), clientRequest.getIdade(), clientRequest.getEmail(), clientRequest.getSenha(), clientRequest.getCpf(), clientRequest.getCategoria(), clientRequest.getFilial(), clientRequest.getGrupos());
 
    return new Cliente(null, clientRequest.getNome(),
             clientRequest.getIdade(),

@@ -1,4 +1,7 @@
 package br.com.fiap.api_rest.dto;
 
-public record EnderecoResponse() {
+import br.com.fiap.api_rest.model.Filial;
+import org.springframework.hateoas.Link;
+
+public record EnderecoResponse(Long id, String localizacao, Filial filial, Link link) {
 }

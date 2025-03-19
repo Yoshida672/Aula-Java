@@ -13,12 +13,12 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private int idade;
+    private Integer idade;
     private String email;
     private String senha;
     private String cpf;
     private Categoria categoria;
-    private Date dataNacimento;
+    private Date dataNascimento;
     private boolean vip;
     @ManyToOne
     @JoinColumn(name="id_filial")
@@ -31,10 +31,10 @@ public class Cliente {
     )
     private List<Grupo> grupos;
 
-    public Cliente(Object o, String nome, int idade, String email, String senha, String cpf, Categoria categoria, Filial filial, List<Grupo> grupos) {
+    public Cliente() {
     }
 
-    public Cliente(Long id, String nome, int idade, String email, String senha, String cpf, Categoria categoria) {
+    public Cliente(Long id, String nome, Integer idade, String email, String senha, String cpf, Categoria categoria,Filial filial, List<Grupo> grupos) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;
@@ -42,28 +42,16 @@ public class Cliente {
         this.senha = senha;
         this.cpf = cpf;
         this.categoria = categoria;
-    }
-
-    public Cliente(Long id, String nome, int idade, String email, String senha, String cpf, Categoria categoria, Date dataNacimento, boolean vip, Filial filial, List<Grupo> grupos) {
-        this.id = id;
-        this.nome = nome;
-        this.idade = idade;
-        this.email = email;
-        this.senha = senha;
-        this.cpf = cpf;
-        this.categoria = categoria;
-        this.dataNacimento = dataNacimento;
-        this.vip = vip;
         this.filial = filial;
         this.grupos = grupos;
     }
 
     public Date getDataNacimento() {
-        return dataNacimento;
+        return dataNascimento;
     }
 
     public void setDataNacimento(Date dataNacimento) {
-        this.dataNacimento = dataNacimento;
+        this.dataNascimento = dataNacimento;
     }
 
     public boolean isVip() {
@@ -90,11 +78,11 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
     }
 
