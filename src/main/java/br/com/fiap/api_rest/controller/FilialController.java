@@ -22,49 +22,40 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value="/filiais",produces = {"application/json"})
+@RequestMapping(value = "/filiais", produces = {"application/json"})
 @Tag(name = "api-clientes")
 public class FilialController {
-    @Autowired
-    FilialRepository filialRepository;
+
     @Autowired
     FilialService filialService;
+
     @PostMapping
-    public ResponseEntity<Filial> createFilial(@Valid @RequestBody FilialRequest filial){
-        Filial filialSalva = filialRepository.save(filialService.requestToFilial(filial));
-        return new ResponseEntity<>(filialSalva, HttpStatus.CREATED);
+    public ResponseEntity<FilialResponse> createFilial(@Valid @RequestBody FilialRequest filialRequest) {
+        return new ResponseEntity<>(filialService.create(filialRequest), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<FilialResponse> getFilial(@PathVariable Long id) {
+        return new ResponseEntity<>(filialService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<Page<FilialResponse>> readFiliais(@RequestParam(defaultValue = "0") Integer page) {
-        Pageable pageable = PageRequest.of(page, 2);
-        return new ResponseEntity<>(filialService.findAll(pageable), HttpStatus.OK);
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<FilialResponse> readFilial(@PathVariable Long id) {
-        Optional<Filial> filial = filialRepository.findById(id);
-        return filial.map(value -> new ResponseEntity<>(filialService.filialToResponse(value, false), HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<List<FilialResponse>> getFiliais(FilialRequest filialRequest) {
+        return new ResponseEntity<>(filialService.findAll(), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Filial> updateFilial(@PathVariable Long id,
-                                                 @RequestBody Filial filial) {
-        Optional<Filial> filialExistente = filialRepository.findById(id);
-        if (filialExistente.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        filial.setId(filialExistente.get().getId());
-        Filial filialAtualizado = filialRepository.save(filial);
-        return new ResponseEntity<>(filialAtualizado, HttpStatus.CREATED);
+    public ResponseEntity<FilialResponse> updateFilial(@PathVariable Long id, FilialRequest filialRequest) {
+        return new ResponseEntity<>(filialService.update(id, filialRequest), HttpStatus.CREATED);
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFilial(@PathVariable Long id) {
-        Optional<Filial> filialExistente = filialRepository.findById(id);
-        if (filialExistente.isEmpty()) {
+    public ResponseEntity<Void> deleteFilial(@PathVariable Long id, FilialRequest filialRequest) {
+        if (filialService.delete(id, filialRequest)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        filialRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }
