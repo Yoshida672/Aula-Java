@@ -27,14 +27,17 @@ import java.util.Optional;
 @RequestMapping(value="/clientes",produces = {"application/json"})
 @Tag(name = "api-clientes")
 public class ClienteController {
+
     @Autowired
     ClienteRepository clienteRepository;
+
     @Autowired
     ClienteService clienteService;
 
     // Create, Read, Update, Delete - CRUD
     // Post, Get, Put, Delete - Verbos HTTP correspondentes
     @Operation(summary = "Cria um novo cliente")
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
                     description = "Cliente cadastrado com sucesso",

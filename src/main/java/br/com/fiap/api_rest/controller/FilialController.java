@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/filiais", produces = {"application/json"})
-@Tag(name = "api-clientes")
+@Tag(name = "api-filiais")
 public class FilialController {
 
     @Autowired
@@ -31,16 +31,15 @@ public class FilialController {
 
     @PostMapping
     public ResponseEntity<FilialResponse> createFilial(@Valid @RequestBody FilialRequest filialRequest) {
-        return new ResponseEntity<>(filialService.create(filialRequest), HttpStatus.CREATED);
-    }
+        return new ResponseEntity<>(filialService.create(filialRequest), HttpStatus.CREATED);}
 
     @GetMapping("/{id}")
-    public ResponseEntity<FilialResponse> getFilial(@PathVariable Long id) {
+    public ResponseEntity<FilialResponse> readFilial(@PathVariable Long id) {
         return new ResponseEntity<>(filialService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<FilialResponse>> getFiliais(FilialRequest filialRequest) {
+    public ResponseEntity<List<FilialResponse>> readFiliais(FilialRequest filialRequest) {
         return new ResponseEntity<>(filialService.findAll(), HttpStatus.OK);
     }
 

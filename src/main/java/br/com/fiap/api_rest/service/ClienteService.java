@@ -21,12 +21,13 @@ public class ClienteService {
     ClienteRepository clienteRepository;
 public Cliente requestToCliente(ClienteRequest clientRequest){
 
-   return new Cliente(null, clientRequest.getNome(),
-            clientRequest.getIdade(),
-            clientRequest.getEmail(),
-            clientRequest.getSenha(),
-            clientRequest.getCpf(),
-            clientRequest.getCategoria(),
+   return new Cliente(null,
+           clientRequest.getNome(),
+           clientRequest.getIdade(),
+           clientRequest.getEmail(),
+           clientRequest.getSenha(),
+           clientRequest.getCpf(),
+           clientRequest.getCategoria(),
            clientRequest.getFilial(),
            clientRequest.getGrupos()
            );
@@ -42,7 +43,11 @@ public ClienteResponse clientToResponse(Cliente cliente, boolean self) {
             ).readClientes(0)
     ).withRel("Lista de Clientes");
 }
-    return  new ClienteResponse(cliente.getId(), cliente.getNome(),cliente.getCategoria(),link);
+    return  new ClienteResponse(
+            cliente.getId(),
+            cliente.getNome(),
+            cliente.getCategoria(),
+            link);
 }
 
 

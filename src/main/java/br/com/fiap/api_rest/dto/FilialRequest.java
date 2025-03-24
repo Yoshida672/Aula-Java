@@ -10,7 +10,7 @@ import java.util.List;
 public class FilialRequest {
     @NotBlank(message = "O nome é obrigatório")
         private String nome;
-    @NotBlank(message = "O endereço é obrigatório")
+    @NotNull(message = "O endereço é obrigatório")
         private Endereco endereco;
 
     public FilialRequest(String nome, Endereco endereco) {
