@@ -1,6 +1,7 @@
 package br.com.fiap.api_rest.service;
 
 import br.com.fiap.api_rest.dto.*;
+import br.com.fiap.api_rest.model.Cliente;
 import br.com.fiap.api_rest.model.Endereco;
 import br.com.fiap.api_rest.model.Filial;
 import br.com.fiap.api_rest.repository.EnderecoRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -26,7 +28,9 @@ public class FilialService {
         return new FilialResponse(
                 filial.getId(),
                 filial.getNome(),
-                filial.getEndereco().getLocalizacao());
+                filial.getEndereco().getLocalizacao(),
+                filial.getClientes().stream().map(Cliente::getNome).collect(Collectors.toList())
+        );
         }
 
     public FilialResponse create( FilialRequest filialRequest){

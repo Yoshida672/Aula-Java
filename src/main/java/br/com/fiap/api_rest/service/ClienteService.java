@@ -47,6 +47,7 @@ public ClienteResponse clientToResponse(Cliente cliente, boolean self) {
             cliente.getId(),
             cliente.getNome(),
             cliente.getCategoria(),
+            cliente.getFilial(),
             link);
 }
 

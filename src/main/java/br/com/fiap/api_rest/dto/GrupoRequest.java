@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-public record GrupoRequest(@NotNull(message = "O nome é obrigatório") String nome,
+public record GrupoRequest(@NotBlank(message = "O nome é obrigatório") String nome,
                            String descricao,
                            List<Cliente> clientes) {
 }

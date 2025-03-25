@@ -39,7 +39,7 @@ public class FilialController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FilialResponse>> readFiliais(FilialRequest filialRequest) {
+    public ResponseEntity<List<FilialResponse>> readFiliais() {
         return new ResponseEntity<>(filialService.findAll(), HttpStatus.OK);
     }
 

@@ -28,9 +28,10 @@ public class GrupoController {
     return new ResponseEntity<>(grupoService.findAll(),HttpStatus.CREATED);
 }
 @GetMapping("/{id}")
-    public ResponseEntity<GrupoResponse> getGrupo(Long id){
+    public ResponseEntity<GrupoResponse> getGrupo(@PathVariable Long id){
      Optional<Grupo> grupo =grupoRepository.findById(id);
-    return grupo.map(value->new ResponseEntity<>(grupoService.grupoToResponse(value),HttpStatus.OK)) .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    return grupo.map(value->new ResponseEntity<>(grupoService.grupoToResponse(value),HttpStatus.OK))
+            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 
 }
 @PostMapping
@@ -52,7 +53,7 @@ public ResponseEntity<GrupoResponse> updateGrupo(@PathVariable Long id,
 }
 
 @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGrupo(Long id){
+    public ResponseEntity<Void> deleteGrupo(@PathVariable Long id){
     Optional<Grupo> grupoExistente = grupoRepository.findById(id);
     if (grupoExistente.isEmpty()) {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
