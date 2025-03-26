@@ -3,12 +3,10 @@ package br.com.fiap.api_rest.controller;
 import br.com.fiap.api_rest.dto.ClienteRequest;
 import br.com.fiap.api_rest.dto.ClienteResponse;
 import br.com.fiap.api_rest.model.Cliente;
-import br.com.fiap.api_rest.model.Endereco;
 import br.com.fiap.api_rest.model.Filial;
 import br.com.fiap.api_rest.repository.ClienteRepository;
 import br.com.fiap.api_rest.repository.FilialRepository;
 import br.com.fiap.api_rest.service.ClienteService;
-import br.com.fiap.api_rest.service.FilialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -35,13 +33,12 @@ public class ClienteController {
     @Autowired
     ClienteRepository clienteRepository;
 
-@Autowired
-FilialRepository filialRepository;
+    @Autowired
+    FilialRepository filialRepository;
+
     @Autowired
     ClienteService clienteService;
 
-    @Autowired
-    FilialService filialService;
 
     // Create, Read, Update, Delete - CRUD
     // Post, Get, Put, Delete - Verbos HTTP correspondentes
@@ -70,8 +67,7 @@ FilialRepository filialRepository;
                 cliente.getCategoria(),
                 filial,
                 cliente.getGrupos());
-        clienteSalvo = clienteRepository.save(clienteService.requestToCliente(clienteSalvo));
-
+        clienteSalvo = clienteRepository.save(clienteSalvo);
         return new ResponseEntity<>(clienteSalvo, HttpStatus.CREATED);
     }
     @Operation(summary = "Retorna uma lista de clientes")

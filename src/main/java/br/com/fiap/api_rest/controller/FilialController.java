@@ -1,25 +1,16 @@
 package br.com.fiap.api_rest.controller;
 
-import br.com.fiap.api_rest.dto.ClienteResponse;
+
 import br.com.fiap.api_rest.dto.FilialRequest;
 import br.com.fiap.api_rest.dto.FilialResponse;
-import br.com.fiap.api_rest.model.Cliente;
-import br.com.fiap.api_rest.model.Filial;
-import br.com.fiap.api_rest.repository.FilialRepository;
 import br.com.fiap.api_rest.service.FilialService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/filiais", produces = {"application/json"})

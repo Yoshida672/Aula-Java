@@ -19,20 +19,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
-public Cliente requestToCliente(ClienteRequest clientRequest){
 
-   return new Cliente(null,
-           clientRequest.getNome(),
-           clientRequest.getIdade(),
-           clientRequest.getEmail(),
-           clientRequest.getSenha(),
-           clientRequest.getCpf(),
-           clientRequest.getCategoria(),
-           clientRequest.getFilial(),
-           clientRequest.getGrupos()
-           );
-}
-public ClienteResponse clientToResponse(Cliente cliente, boolean self) {
+    public ClienteResponse clientToResponse(Cliente cliente, boolean self) {
     Link link;
     if(self){
     link = linkTo(methodOn(ClienteController.class).readCliente(cliente.getId())).withSelfRel().withRel("Cliente");
