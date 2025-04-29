@@ -11,44 +11,42 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Date;
 
 @Service
 public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String genetateToken(User user){
-        try{
+    public String generateToken(User usuario) {
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("apisecurity")
-                    .withSubject(user.getUsername())
+                    .withSubject(usuario.getUsername())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
-        }
-        catch (JWTCreationException e){
-            throw new RuntimeException("Erro na geração de token",e);
+        } catch (JWTCreationException exception) {
+            throw new RuntimeException("Erro na geração de token", exception);
         }
     }
 
-    public String validateToken(String token){
-        try{
+    public String validateToken(String token) {
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
                     .withIssuer("apisecurity")
                     .build()
                     .verify(token)
                     .getSubject();
-        }
-        catch (JWTVerificationException e){
-            throw new RuntimeException("Erro na validação do token",e);
+        } catch (JWTVerificationException exception) {
+            return "";
         }
     }
 
-    public Instant genExpirationDate(){
-        return LocalDateTime.now()
-                .plusMinutes(1)
+    private Instant genExpirationDate() {
+        return LocalDateTime
+                .now()
+                .plusMinutes(2)
                 .toInstant(ZoneOffset.of("-03:00"));
     }
 
