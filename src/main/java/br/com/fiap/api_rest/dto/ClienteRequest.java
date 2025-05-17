@@ -24,7 +24,6 @@ public class ClienteRequest {
     private String cpf;
     @NotNull(message = "A categoria é obrigatória")
     private Categoria categoria;
-    @NotNull(message = "A filial é obrigatória")
     private Filial filial;
     private List<Grupo> grupos;
     public ClienteRequest() {
